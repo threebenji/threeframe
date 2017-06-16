@@ -15,6 +15,11 @@ class Config
         }
     }
 
+    /**
+     * @param string $key
+     * @param null $default
+     * @return null|string
+     */
     public static function Get(string $key, $default = null)
     {
         $keys = explode('.', $key);
