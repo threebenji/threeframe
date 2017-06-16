@@ -9,7 +9,7 @@ namespace ThreeFrame;
  * @package    SimpleOrm
  * @author     Alex Joyce <im@alex-joyce.com>
  */
-abstract class ORM
+abstract class Orm
 {
     protected static
         $conn,
