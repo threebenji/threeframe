@@ -6,7 +6,7 @@ namespace ThreeFrame;
  * Simple ORM base class.
  *
  * @abstract
- * @package    SimpleOrm
+ * @package    Orm
  * @author     Alex Joyce <im@alex-joyce.com>
  */
 abstract class Orm
