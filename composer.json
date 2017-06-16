@@ -16,8 +16,6 @@
     "guzzlehttp/guzzle": "^6.2"
   },
   "autoload": {
-    "psr-4": {
-      "ThreeFrame\\": "src/"
-    }
+    "classmap": ["src"]
   }
 }
