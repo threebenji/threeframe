@@ -9,7 +9,7 @@ namespace ThreeFrame;
  * @package    Orm
  * @author     Alex Joyce <im@alex-joyce.com>
  */
-abstract class Orm
+abstract class ORM
 {
     protected static
         $conn,
@@ -647,7 +647,7 @@ abstract class Orm
      * @param integer $return
      * @return mixed
      */
-    public static function sql($sql, $return = Orm::FETCH_MANY)
+    public static function sql($sql, $return = ORM::FETCH_MANY)
     {
         // shortcuts
         $sql = str_replace(array(':database', ':table', ':pk'), array(self::getDatabaseName(), self::getTableName(), self::getTablePk()), $sql);
@@ -658,14 +658,14 @@ abstract class Orm
         if (!$result)
             throw new \Exception(sprintf('Unable to execute SQL statement. %s', self::getConnection()->error));
 
-        if ($return === Orm::FETCH_NONE)
+        if ($return === ORM::FETCH_NONE)
             return;
         $ret = array();
         while ($row = $result->fetch_assoc())
             $ret[] = call_user_func_array(array(get_called_class(), 'hydrate'), array($row));
         $result->close();
         // return one if requested
-        if ($return === Orm::FETCH_ONE)
+        if ($return === ORM::FETCH_ONE)
             $ret = isset($ret[0]) ? $ret[0] : null;
         return $ret;
     }
@@ -680,7 +680,7 @@ abstract class Orm
      */
     public static function count($sql)
     {
-        $count = self::sql($sql, Orm::FETCH_ONE);
+        $count = self::sql($sql, ORM::FETCH_ONE);
         return $count > 0 ? $count : 0;
     }
 
@@ -694,7 +694,7 @@ abstract class Orm
      */
     public static function truncate()
     {
-        self::sql('TRUNCATE :database.:table', Orm::FETCH_NONE);
+        self::sql('TRUNCATE :database.:table', ORM::FETCH_NONE);
     }
 
     /**
@@ -720,7 +720,7 @@ abstract class Orm
         if (!is_numeric($pk))
             throw new \InvalidArgumentException('The PK must be an integer.');
         $reflectionObj = new \ReflectionClass(get_called_class());
-        return $reflectionObj->newInstanceArgs(array($pk, Orm::LOAD_BY_PK));
+        return $reflectionObj->newInstanceArgs(array($pk, ORM::LOAD_BY_PK));
     }
 
     /**
@@ -736,7 +736,7 @@ abstract class Orm
         if (!is_array($data))
             throw new \InvalidArgumentException('The data given must be an array.');
         $reflectionObj = new \ReflectionClass(get_called_class());
-        return $reflectionObj->newInstanceArgs(array($data, Orm::LOAD_BY_ARRAY));
+        return $reflectionObj->newInstanceArgs(array($data, ORM::LOAD_BY_ARRAY));
     }
 
     /**
@@ -773,14 +773,14 @@ abstract class Orm
      * @param integer $return
      * @return mixed
      */
-    public static function retrieveByField($field, $value, $return = Orm::FETCH_MANY)
+    public static function retrieveByField($field, $value, $return = ORM::FETCH_MANY)
     {
         if (!is_string($field))
             throw new \InvalidArgumentException('The field name must be a string.');
         // build our query
         $operator = (strpos($value, '%') === false) ? '=' : 'LIKE';
         $sql = sprintf("SELECT * FROM :database.:table WHERE %s %s '%s'", $field, $operator, $value);
-        if ($return === Orm::FETCH_ONE)
+        if ($return === ORM::FETCH_ONE)
             $sql .= ' LIMIT 0,1';
         // fetch our records
         return self::sql($sql, $return);
