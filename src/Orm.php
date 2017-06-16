@@ -72,17 +72,25 @@ abstract class Orm
         }
         $this->initialise();
     }
-
+    public static function Init($config)
+    {
+        $conn = new \mysqli($config['host'], $config['user'], $config['password']);
+        if ($conn->connect_error)
+        {
+            die(sprintf('Unable to connect to the database. %s', $conn->connect_error));
+        }
+        ORM::useConnection($conn, $config['name']);
+    }
     /**
      * Give the class a connection to play with.
      *
-     * @access public
+     * @access private
      * @static
-     * @param mysqli $conn MySQLi connection instance.
+     * @param \mysqli $conn MySQLi connection instance.
      * @param string $database
      * @return void
      */
-    public static function useConnection(\mysqli $conn, $database)
+    private static function useConnection(\mysqli $conn, $database)
     {
         self::$conn = $conn;
         self::$database = $database;
