@@ -16,6 +16,8 @@
     "guzzlehttp/guzzle": "^6.2"
   },
   "autoload": {
-    "classmap": ["src"]
+    "psr-4": {
+      "GuzzleHttp\\": "src/"
+    }
   }
 }
