@@ -822,7 +822,7 @@ abstract class ORM
     {
         if (Config::Get("debug"))
         {
-            print sprintf("[%s] %s",date("Y-m-d H:i:s"),$sql);
+            print sprintf("[%s] %s \r\n",date("Y-m-d H:i:s"),$sql);
         }
     }
 }
