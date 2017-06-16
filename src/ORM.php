@@ -191,6 +191,7 @@ abstract class ORM
     {
         $sql = sprintf("SELECT * FROM `%s`.`%s` WHERE `%s` = '%s';", self::getDatabaseName(), self::getTableName(), self::getTablePk(), $this->id());
         $result = self::getConnection()->query($sql);
+        self::writeLog($sql);
         if (!$result->num_rows)
             throw new \Exception(sprintf("%s record not found in database. (PK: %s)", get_called_class(), $this->id()), 2);
         foreach ($result->fetch_assoc() AS $key => $value)
@@ -226,8 +227,12 @@ abstract class ORM
         $className = get_called_class();
         // static prop config
         if (isset($className::$table))
+        {
             return $className::$table;
+        }
         // assumed config
+        $reflectionObj = new \ReflectionClass(get_called_class());
+        $className = $reflectionObj->getShortName();
         return strtolower($className);
     }
 
@@ -376,6 +381,7 @@ abstract class ORM
 
         // prepare, bind & execute
         $stmt = self::getConnection()->prepare($sql);
+        self::writeLog($sql);
         if (!$stmt)
             throw new \Exception(self::getConnection()->error . "\n\n" . $sql);
         call_user_func_array(array($stmt, 'bind_param'), array_merge(array(implode($types)), $values));
@@ -428,6 +434,7 @@ abstract class ORM
         $sql = sprintf("UPDATE `%s`.`%s` SET %s WHERE `%s` = ?", self::getDatabaseName(), self::getTableName(), implode(', ', $fields), $pk);
         // prepare, bind & execute
         $stmt = self::getConnection()->prepare($sql);
+        self::writeLog($sql);
         if (!$stmt)
             throw new \Exception(self::getConnection()->error . "\n\n" . $sql);
         call_user_func_array(array($stmt, 'bind_param'), array_merge(array(implode($types)), $values));
@@ -453,6 +460,7 @@ abstract class ORM
         $sql = sprintf("DELETE FROM `%s`.`%s` WHERE `%s` = ?", self::getDatabaseName(), self::getTableName(), self::getTablePk());
         // prepare, bind & execute
         $stmt = self::getConnection()->prepare($sql);
+        self::writeLog($sql);
         if (!$stmt)
             throw new \Exception(self::getConnection()->error);
 
@@ -654,7 +662,7 @@ abstract class ORM
 
         // execute
         $result = self::getConnection()->query($sql);
-
+        self::writeLog($sql);
         if (!$result)
             throw new \Exception(sprintf('Unable to execute SQL statement. %s', self::getConnection()->error));
 
@@ -809,5 +817,12 @@ abstract class ORM
             $values[$object->id()] = (string)$object;
 
         return $values;
+    }
+    protected static function writeLog($sql)
+    {
+        if (Config::Get("debug"))
+        {
+            print sprintf("[%s] %s",date("Y-m-d H:i:s"),$sql);
+        }
     }
 }
