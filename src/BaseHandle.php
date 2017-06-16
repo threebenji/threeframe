@@ -8,6 +8,9 @@ class BaseHandle
     private $data = "";
     private $contentType = "json";
 
+    /**
+     * 根据不同content-type设定不同header头并且输出
+     */
     public function __destruct()
     {
         Response::$contentType = $this->contentType;
