@@ -1,5 +1,5 @@
 {
-  "name": "threebenji/frame",
+  "name": "threebenji/YFrame",
   "description": "一个基于swoole+php7.0的API框架",
   "minimum-stability": "dev",
   "prefer-stable": true,
