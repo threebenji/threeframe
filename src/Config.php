@@ -6,6 +6,9 @@ class Config
 {
     private static $configs;
 
+    /**
+     * @param string $path
+     */
     public static function Init(string $path)
     {
         if (empty(self::$configs)) {
