@@ -72,15 +72,16 @@ abstract class ORM
         }
         $this->initialise();
     }
+
     public static function Init($config)
     {
         $conn = new \mysqli($config['host'], $config['user'], $config['password']);
-        if ($conn->connect_error)
-        {
+        if ($conn->connect_error) {
             die(sprintf('Unable to connect to the database. %s', $conn->connect_error));
         }
         ORM::useConnection($conn, $config['name']);
     }
+
     /**
      * Give the class a connection to play with.
      *
@@ -226,8 +227,7 @@ abstract class ORM
     {
         $className = get_called_class();
         // static prop config
-        if (isset($className::$table))
-        {
+        if (isset($className::$table)) {
             return $className::$table;
         }
         // assumed config
@@ -825,9 +825,8 @@ abstract class ORM
      */
     protected static function writeLog($sql)
     {
-        if (Config::Get("debug"))
-        {
-            print sprintf("[%s] %s \r\n",date("Y-m-d H:i:s"),$sql);
+        if (Config::Get("debug")) {
+            print sprintf("[%s] %s \r\n", date("Y-m-d H:i:s"), $sql);
         }
     }
 }
