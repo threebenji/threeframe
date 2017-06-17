@@ -818,6 +818,11 @@ abstract class ORM
 
         return $values;
     }
+
+    /**
+     * print sql log
+     * @param $sql
+     */
     protected static function writeLog($sql)
     {
         if (Config::Get("debug"))
