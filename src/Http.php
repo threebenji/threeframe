@@ -9,20 +9,18 @@ class Http
     public function __construct($config)
     {
         $this->serv = new \swoole_http_server($config["address"], $config['port']);
-        if(isset($config['user']))
-        {
-            $this->serv->set(["user"=>$config['user']]);
+        if (isset($config['user'])) {
+            $this->serv->set(["user" => $config['user']]);
         }
-        if(isset($config['group']))
-        {
-            $this->serv->set(["group"=>$config['group']]);
+        if (isset($config['group'])) {
+            $this->serv->set(["group" => $config['group']]);
         }
         $this->serv->set(array(
             'worker_num' => $config["worker_num"],
             'daemonize' => $config["daemon"],
             'log_level' => $config["log_level"],
-            'pid_file' => getcwd().$config['pid_file'],
-            'log_file' => getcwd().$config['log_file'],
+            'pid_file' => getcwd() . $config['pid_file'],
+            'log_file' => getcwd() . $config['log_file'],
         ));
     }
 

@@ -16,18 +16,21 @@ class BaseHandle
         Response::$contentType = $this->contentType;
         Response::write($this->code, $this->data);
     }
+
     public function respJson($code, $data)
     {
         $this->contentType = "json";
         $this->code = $code;
         $this->data = $data;
     }
+
     public function respHtml($code, $html)
     {
         $this->contentType = "html";
         $this->code = $code;
         $this->data = $html;
     }
+
     public function respXml($code, $xml)
     {
         $this->contentType = "xml";
