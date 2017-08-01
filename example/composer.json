@@ -5,6 +5,6 @@
         ]
     },
     "require": {
-        "threebenji/threeframe": "1.0.x-dev"
+        "threebenji/threeframe": "dev-master"
     }
 }
