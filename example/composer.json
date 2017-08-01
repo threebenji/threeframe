@@ -1,0 +1,10 @@
+{
+    "autoload":{
+        "classmap":[
+            "app/"
+        ]
+    },
+    "require": {
+        "threebenji/threeframe": "1.0.x-dev"
+    }
+}

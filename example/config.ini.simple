@@ -1,0 +1,16 @@
+debug = true
+[server]
+;user = www
+;group = www-data
+address = 0.0.0.0
+port = 9501
+worker_num = 10
+daemon = false
+log_level = 0
+log_file = /logs/app.log
+pid_file = /logs/server.pid
+[database]
+host = 127.0.0.1
+user = root
+password = root
+name = test
