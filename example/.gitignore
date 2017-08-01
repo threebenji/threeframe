@@ -1,1 +1,2 @@
-logs/*
+logs/app.log
+logs/server.pid
