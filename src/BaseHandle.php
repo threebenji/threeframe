@@ -37,4 +37,17 @@ class BaseHandle
         $this->code = $code;
         $this->data = $xml;
     }
+
+    public function respView($code, $view, $args = [])
+    {
+        $this->contentType = "html";
+
+        try {
+            $this->code = $code;
+            $this->data = View::make($view, $args);
+        } catch (\Exception $exception) {
+            $this->code = 500;
+            $this->data = $exception->getMessage();
+        }
+    }
 }

@@ -10,7 +10,8 @@ class HomeHandle extends BaseHandle
 {
     public function Index()
     {
-        $this->respHtml(200, "hello world");
+
+        $this->respView(200, "test",["a"=>'b']);
     }
 
     public function Show($id)
