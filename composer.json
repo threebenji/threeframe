@@ -1,9 +1,8 @@
 {
   "name": "threebenji/threeframe",
   "description": "一个基于swoole+php7.0的API框架",
-  "minimum-stability": "dev",
+  "minimum-stability": "1.1",
   "prefer-stable": true,
-  "license": "BSD",
   "authors": [
     {
       "name": "three",
